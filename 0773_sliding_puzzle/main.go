@@ -23,12 +23,15 @@ func serialize(board [][]int) string {
 }
 
 func createNewBoard(row, col, tagetRow, targetCol int, board *[][]int) *[][]int {
+	// go built-in copy is just shallow copy
 	newBoard := deepCopy(*board)
 	newBoard[tagetRow][targetCol], newBoard[row][col] = newBoard[row][col], newBoard[tagetRow][targetCol]
 	return &newBoard
 }
 
+// deep copy
 func deepCopy(src [][]int) [][]int {
+	// initalize a slice of slice with same dimension of input
 	dst := make([][]int, len(src))
 	for i := range dst {
 		dst[i] = make([]int, len(src[0]))
@@ -59,14 +62,17 @@ func slidingPuzzle(board [][]int) int {
 		newQueue := []State{}
 		for _, curr := range queue {
 			serialized := serialize(*curr.Board)
+			// if hit the taget, return
 			if serialized == "123450" {
 				return steps
 			}
+			// if visited, skip
 			if _, ok := visited[serialized]; ok {
 				continue
 			}
 			visited[serialized] = true
 			var next *[][]int
+			// seach each direction
 			if curr.Row > 0 {
 				next = createNewBoard(curr.Row, curr.Col, curr.Row-1, curr.Col, curr.Board)
 				newQueue = append(newQueue, State{curr.Row - 1, curr.Col, next})
