@@ -39,11 +39,7 @@ func kEmptySlots2(flowers []int, k int) int {
     for ; right < len(garden); i++ {
     	if garden[i] < garden[left] || garden[i] <= garden[right] {
 			if i == right {
-				if garden[left] > garden[right] {
-				    res = right
-				} else {
-					res = left
-				}
+				
 			}
 			left = i
 			right = left + k + 1
