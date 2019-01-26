@@ -16,6 +16,7 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	curr := dummy
 	for l1 != nil || l2 != nil {
+		// to optimize, we could break the loop here when one of the node is nil
 		if l1 == nil || l2 != nil && l2.Val <= l1.Val {
 			curr.Next = l2
 			curr = curr.Next
